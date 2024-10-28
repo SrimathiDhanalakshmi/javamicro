@@ -1,0 +1,21 @@
+package com.example.bmi_calculator.service;
+
+import com.example.bmi_calculator.model.User;
+import com.example.bmi_calculator.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserService {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    public User saveUser(User user) {
+        // Calculate BMI
+        double heightInMeters = user.getHeight() / 100;
+        double bmi = user.getWeight() / (heightInMeters * heightInMeters);
+        user.setBmi(bmi);
+        return userRepository.save(user);
+    }
+}
